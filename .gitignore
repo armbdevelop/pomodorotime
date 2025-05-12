@@ -188,3 +188,4 @@ logs
 !.env.example
 
 keys/
+pomodoro.sqlite
