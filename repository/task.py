@@ -1,4 +1,3 @@
-from fastapi import Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import select, delete
 from database import Tasks, get_db_session, Categories
