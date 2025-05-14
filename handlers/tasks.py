@@ -1,13 +1,19 @@
-from fastapi import APIRouter
-from repository.task import get_task_repository
+from fastapi import APIRouter, Depends
+from dependencies import get_task_repository
+from typing import Annotated, List
 from database.models import Tasks
 from schema.schemas import Task
+from repository import TaskRepository
+
 router = APIRouter(prefix="/tasks", tags=['tasks'])
 
 
-@router.get("/all")
-async def get_tasks():
-    return get_task_repository().get_task()
+@router.get(
+    "/all",
+    response_model=List[Task],
+)
+async def get_tasks(task_repository: Annotated[TaskRepository, Depends(get_task_repository)]):
+    return task_repository.get_tasks()
 
 
 @router.post('/')

@@ -1,4 +1,4 @@
-from .models import Tasks, Categories
+from .models import Tasks, Categories, Base
 from .database import get_db_session
 
-__all__ = ['Tasks', 'Categories', 'get_db_session']
+__all__ = ['Tasks', 'Categories', 'get_db_session', 'Base']

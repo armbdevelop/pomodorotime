@@ -1,21 +1,33 @@
-from sqlalchemy.orm import  Mapped, mapped_column, declarative_base
+from typing import Optional
 
-Base = declarative_base()
+from sqlalchemy.orm import Mapped, mapped_column, declarative_base, DeclarativeBase, declared_attr
+
+# Base = declarative_base()
+
+
+class Base(DeclarativeBase):
+    id: int
+    __name__: str
+
+    __allow__unmapped__ = True
+
+    @declared_attr
+    def __tablename__(self) -> str:
+        return self.__name__.lower()
 
 
 class Tasks(Base):
-    __tablename__ = "tasks"
 
-    id: Mapped[int] = mapped_column(primary_key=True)
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
     name: Mapped[str]
     description: Mapped[str]
     pomodoro_count: Mapped[int]
-    category_id: Mapped[int]
+    category_id: Mapped[int] = mapped_column(nullable=False)
 
 
 class Categories(Base):
-    __tablename__ = "categories"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    type: Mapped[Optional[str]] = None
     name: Mapped[str]
 

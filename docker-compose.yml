@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:17
+    restart: always
+
+    shm_size: 128mb
+
+    ports:
+      - '5432:5432'
+
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: pomodoro
+      POSTGRES_DB: pomodoro
