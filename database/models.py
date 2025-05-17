@@ -20,7 +20,6 @@ class Tasks(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
     name: Mapped[str]
-    description: Mapped[str]
     pomodoro_count: Mapped[int]
     category_id: Mapped[int] = mapped_column(nullable=False)
 
