@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from starlette import status
-
-from dependencies import get_task_repository
+from dependencies import get_task_service, get_task_repository
 from typing import Annotated, List
 from database.models import Tasks
 from schema.schemas import TaskShema
-from repository import TaskRepository
+from repository import TaskRepository, TaskCache
+from service import TaskService
 
 router = APIRouter(prefix="/tasks", tags=['tasks'])
 
@@ -14,8 +14,10 @@ router = APIRouter(prefix="/tasks", tags=['tasks'])
     "/all",
     response_model=List[TaskShema],
 )
-async def get_tasks(task_repository: Annotated[TaskRepository, Depends(get_task_repository)]):
-    return task_repository.get_tasks()
+async def get_tasks(
+        task_service: Annotated[TaskService, Depends(get_task_service)],
+):
+    return task_service.get_tasks()
 
 
 @router.post(
