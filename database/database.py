@@ -1,14 +1,12 @@
-from sqlalchemy import create_engine
-from settings import Settings
-from sqlalchemy.orm import sessionmaker
-
-engine = create_engine('postgresql+psycopg2://pomodoro:password@localhost:5432/pomodoro?client_encoding=utf8', echo=True)
-
-settings = Settings()
-
-Session = sessionmaker(bind=engine)
+from sqlalchemy.orm import DeclarativeBase, declared_attr
 
 
-def get_db_session() -> Session:
-    return Session
+class Base(DeclarativeBase):
+    id: int
+    __name__: str
 
+    __allow__unmapped__ = True
+
+    @declared_attr
+    def __tablename__(self) -> str:
+        return self.__name__.lower()

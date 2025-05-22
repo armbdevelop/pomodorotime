@@ -2,7 +2,6 @@ from fastapi import APIRouter, Depends
 from starlette import status
 from dependencies import get_task_service, get_task_repository
 from typing import Annotated, List
-from database.models import Tasks
 from schema.schemas import TaskShema
 from repository import TaskRepository, TaskCache
 from service import TaskService
